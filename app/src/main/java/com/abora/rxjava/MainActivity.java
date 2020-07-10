@@ -19,7 +19,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      //  Observable<Long> cold;
+      coldObservable();
+
+    }
+
+    private void coldObservable() {
         Observable<Long> cold=Observable.intervalRange(0,5,0,1, TimeUnit.SECONDS);
 
         cold.subscribe(i-> Log.d(TAG,"Observable cold output 1: "+i));
