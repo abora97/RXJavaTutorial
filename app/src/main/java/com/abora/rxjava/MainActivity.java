@@ -6,9 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.core.MaybeObserver;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observables.ConnectableObservable;
 import io.reactivex.rxjava3.subjects.AsyncSubject;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
@@ -31,8 +38,112 @@ public class MainActivity extends AppCompatActivity {
         //hotObservable();
         // hotBehaviorObservable();
         //hotReplayObservable();
-        hotAsyncObservable();
+        //hotAsyncObservable();
+
+        //type of observer
+        //   initObserver();
+        //   initSingleObserver();
+        //   initMaybeObserver();
+        //   initCompletableObserver();
+
+        //  RXJava creation operators
+        /*
+            1- intervalRange()
+            2- create()
+
+         */
+      
     }
+
+
+
+    private void initObserver() {
+        Observer observer = new Observer() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(TAG, "onSubscribe " + d);
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.d(TAG, "Object " + o);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onError " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete ");
+            }
+        };
+
+    }
+
+    private void initCompletableObserver() {
+        CompletableObserver completableObserver = new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        };
+    }
+
+    private void initMaybeObserver() {
+        MaybeObserver maybeObserver = new MaybeObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(Object o) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+
+    private void initSingleObserver() {
+        SingleObserver singleObserver = new SingleObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(Object o) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        };
+    }
+
 
     // 6
     private void hotAsyncObservable() {
