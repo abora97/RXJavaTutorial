@@ -3,6 +3,7 @@ package com.abora.rxjava;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -61,25 +62,27 @@ public class MainActivity extends AppCompatActivity {
         //initFormArrayOperator();
         //initRangeOperator();
         //initTimerOperator();
+
+        startActivity(new Intent(this, MainActivity2.class));
     }
 
     private void initTimerOperator() {
-       Observable observable=Observable.timer(3,TimeUnit.SECONDS);
+        Observable observable = Observable.timer(3, TimeUnit.SECONDS);
         initObserver(observable);
     }
 
     private void initRangeOperator() {
-        Observable observable = Observable.range(0,5);
+        Observable observable = Observable.range(0, 5);
         initObserver(observable);
     }
 
     private void initFormArrayOperator() {
-        Integer[] list=new Integer[5];
-        list[0]=0;
-        list[1]=1;
-        list[2]=2;
-        list[3]=3;
-        list[4]=4;
+        Integer[] list = new Integer[5];
+        list[0] = 0;
+        list[1] = 1;
+        list[2] = 2;
+        list[3] = 3;
+        list[4] = 4;
 
         Observable observable = Observable.fromArray(list)
                 .repeat(2);
@@ -102,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < 5; i++) {
 
-                    if(i==3){
-                        emitter.onNext(3/0);
-                    }else {
+                    if (i == 3) {
+                        emitter.onNext(3 / 0);
+                    } else {
                         emitter.onNext("Abora; " + i);
                     }
                 }
