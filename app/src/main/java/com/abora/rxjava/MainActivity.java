@@ -13,6 +13,8 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.MaybeObserver;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -50,14 +52,71 @@ public class MainActivity extends AppCompatActivity {
         /*
             1- intervalRange()
             2- create()
-
+            3- just()
+            4- fromArray()
+            5- range()
          */
-      
+        //initCreateOperator();
+        //initJustOperator();
+        //initFormArrayOperator();
+        //initRangeOperator();
+        //initTimerOperator();
+    }
+
+    private void initTimerOperator() {
+       Observable observable=Observable.timer(3,TimeUnit.SECONDS);
+        initObserver(observable);
+    }
+
+    private void initRangeOperator() {
+        Observable observable = Observable.range(0,5);
+        initObserver(observable);
+    }
+
+    private void initFormArrayOperator() {
+        Integer[] list=new Integer[5];
+        list[0]=0;
+        list[1]=1;
+        list[2]=2;
+        list[3]=3;
+        list[4]=4;
+
+        Observable observable = Observable.fromArray(list)
+                .repeat(2);
+        initObserver(observable);
+    }
+
+    private void initJustOperator() {
+        Observable observable = Observable.just(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+        initObserver(observable);
+
+    }
+
+    private void initCreateOperator() {
+
+        Observable observable = Observable.create(new ObservableOnSubscribe<Object>() {
+
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> emitter) throws Throwable {
+                // emitter -> onNext
+
+                for (int i = 0; i < 5; i++) {
+
+                    if(i==3){
+                        emitter.onNext(3/0);
+                    }else {
+                        emitter.onNext("Abora; " + i);
+                    }
+                }
+                emitter.onComplete();
+            }
+        });
+        initObserver(observable);
+
     }
 
 
-
-    private void initObserver() {
+    private void initObserver(Observable observable) {
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -79,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onComplete ");
             }
         };
+        observable.subscribe(observer);
 
     }
 
