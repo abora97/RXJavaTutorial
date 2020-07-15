@@ -1,12 +1,13 @@
 package com.abora.rxjava;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.abora.rxjava.databinding.ActivityMainBinding;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,10 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setLifecycleOwner(this);
+
 
         //  coldObservable();
         // hotConnectableColdObservable();
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         //initRangeOperator();
         //initTimerOperator();
 
-        startActivity(new Intent(this, MainActivity2.class));
+        startActivity(new Intent(this, MainActivity3.class));
     }
 
     private void initTimerOperator() {
